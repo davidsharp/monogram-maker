@@ -3,6 +3,8 @@ const urlInput = document.getElementById('image-url')
 const textInput = document.getElementById('text')
 const fontInput = document.getElementById('font')
 
+const image = new Image();
+
 const ctx = canvas.getContext('2d')
 
 const drawPlz = (options={}) =>{
@@ -13,15 +15,20 @@ const drawPlz = (options={}) =>{
   const colours = options.colours || ['#DD4','#4D4']
   const img = {width,height,colours}
   
-  const textWidth = ctx.measureText(textToPrint).width
-  const textHeight = 250
+  
+  ctx.font = `${250}px "${fontInput.value}"`;
+  
+  const measurements = ctx.measureText(textToPrint)
+  const textWidth = measurements.width
+  //const textHeight = measurements.emHeightAscent+measurements.emHeightDescent
 
   var g=ctx.createLinearGradient(img.width-10,0,0,img.height-10);
   colours.forEach((c,i)=>{g.addColorStop(i,c)})
   ctx.fillStyle=g;
   ctx.fillRect(0, 0, img.width, img.height);
   
-  ctx.font = `${textHeight}px ${fontInput.value}`;
+  ctx.drawImage(image, 0, 0);
+  
   ctx.fillStyle = "white";
   ctx.strokeStyle = "#444";
   ctx.lineWidth = 4;
@@ -36,6 +43,8 @@ const drawPlz = (options={}) =>{
 }
 
 drawPlz()
-urlInput.addEventListener('change',drawPlz)
+
+urlInput.addEventListener('change',()=>image.src = urlInput.value);
+image.addEventListener('load', drawPlz);
 textInput.addEventListener('change',drawPlz)
 fontInput.addEventListener('change',drawPlz)

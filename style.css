@@ -170,15 +170,11 @@ h2 {
   color: #2800FF;
 }
 
-/* Interactive image */
-.illustration:active {
-  transform: translateY(5px);
+#logo-canvas {
+  border-radius: 50%;
+  transition-property: border-radius;
+  transition-duration: .3s;
 }
-
-/* Button dip
-- Toggling this class on and off will move it down and up again
-- The button transition property above determines the speed of the translate (500ms)
-*/
-.dipped {
-  transform: translateY(5px);
+#logo-canvas:hover {
+  border-radius: 0;
 }
