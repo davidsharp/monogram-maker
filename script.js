@@ -20,6 +20,7 @@ const drawPlz = (options={}) =>{
   
   const measurements = ctx.measureText(textToPrint)
   const textWidth = measurements.width
+  // todo, font sits a bit high due to baseline being lower than average middle
   //const textHeight = measurements.emHeightAscent+measurements.emHeightDescent
 
   var g=ctx.createLinearGradient(img.width-10,0,0,img.height-10);
@@ -44,7 +45,8 @@ const drawPlz = (options={}) =>{
 
 drawPlz()
 
-urlInput.addEventListener('change',()=>image.src = urlInput.value);
+urlInput.addEventListener('change',e => image.src = URL.createObjectURL(e.target.files[0]));
 image.addEventListener('load', drawPlz);
 textInput.addEventListener('change',drawPlz)
 fontInput.addEventListener('change',drawPlz)
+
